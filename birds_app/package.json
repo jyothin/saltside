@@ -1,0 +1,24 @@
+{
+  "name": "birds_app",
+  "version": "1.0.0",
+  "description": "App to store and retrieve from birds info from database",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jyothin/saltside.git"
+  },
+  "keywords": [
+    "saltside",
+    "coding",
+    "assignment"
+  ],
+  "author": "Jyothin Madari",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jyothin/saltside/issues"
+  },
+  "homepage": "https://github.com/jyothin/saltside#readme"
+}
