@@ -7,8 +7,9 @@ var id;
 
 // POST
 describe('POST request test', function () {
-    describe('Post /birds', function () {
 
+    // Post /birds
+    describe('Post /birds', function () {
         it('returns status code 201', function () {
             request.post({url: URL,
                     json: {name: 'Parrot', family: 'Parrot',
@@ -20,7 +21,6 @@ describe('POST request test', function () {
                 }
             );
         });
-
         it('returns status code 400', function () {
             request.post({url: URL, 
                     json: {name: 'Parrot', family: 'Parrot', 
@@ -31,7 +31,6 @@ describe('POST request test', function () {
                 }
             );
         });
-
         it('returns status code 400', function () {
             request.post({url: URL, 
                     json: {family: 'Parrot', 
@@ -42,7 +41,6 @@ describe('POST request test', function () {
                 }
             );
         });
-
         it('returns status code 400', function () {
             request.post({url: URL, 
                     json: {name: 'Parrot', 
@@ -53,7 +51,6 @@ describe('POST request test', function () {
                 }
             );
         });
-
         it('returns status code 400', function () {
             request.post({url: URL, 
                     json: {name: 'Parrot', 'family': 'Parrot'
@@ -64,8 +61,8 @@ describe('POST request test', function () {
                 }
             );
         });
-
     });
+
 });
 
 // GET
@@ -78,8 +75,6 @@ describe('GET request test', function () {
                 assert.equal(200, res.statusCode);
                 assert.equal('[object Array]', Object.prototype.toString.call(body));
 
-                id = JSON.parse(body[0]).id;
-
                 done();
             });            
         });
@@ -91,7 +86,13 @@ describe('GET request test', function () {
             request.get(URL+'/'+id, {headers: {'Accept': 'application/json'}}, function (err, res, body) {
                 assert.equal(200, res.statusCode);
                 assert.equal('[object Array]', Object.prototype.toString.call(body));
-                app.appClose();
+                done();
+            });
+        });
+        it('returns status code 404', function () {
+            request.get(URL+'/123456781234567812345678', {headers: {'Accept': 'application/json'}}, function (err, res, body) {
+                assert.equal(404, res.statusCode);
+                assert.equal('[object Array]', Object.prototype.toString.call(body));
                 done();
             });
         });
@@ -100,3 +101,23 @@ describe('GET request test', function () {
 });
 
 // DELETE
+describe('DELETE request test', function () {
+    
+    // Delete by ID
+    describe('Delete /birds/{id}', function () {
+        it('returns status code 200', function () {
+            request.delete(URL+'/'+id, function (err, res, body) {
+                assert.equal(200, res.statusCode);
+                done();
+            });
+        });
+        it('returns status code 404', function () {
+            request.delete(URL+'/123456781234567812345678', function (err, res, body) {
+                assert.equal(404, res.statusCode);
+                done();
+                app.appClose();
+            });
+        });
+    });
+
+});

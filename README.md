@@ -24,7 +24,7 @@ Supported requests:
 ### Dependencies
 * [jq](https://stedolan.github.io/jq/)
     * jq is a lightweight and flexible command-line JSON processor
-    * Used for running some tests
+    * Used for running the integration tests
     * See [here](https://stedolan.github.io/jq/download/) for installing jq for your distribution
 
 ### Running the test suite
