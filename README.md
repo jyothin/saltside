@@ -1,6 +1,6 @@
 # Introduction
 Basic HTTP service with JSON API that handles POST, GET and DELETE requests as per the Saltside requirements specified 
-[here!](https://gist.github.com/sebdah/265f4255cb302c80abd4)
+[here](https://gist.github.com/sebdah/265f4255cb302c80abd4)
 
 Supported requests:
 * GET /birds - List all birds
@@ -9,17 +9,16 @@ Supported requests:
 * DELETE /birds/{id} - Delete a bird by id
 
 # Installation
-* Install dependencies listed in Installation section above
-* npm install (?)
-
-# Starting the app
-`$> node index.js`
+* `npm install`
 
 # Test Suite
 ## Unit Tests
 ### Dependencies
-* [mocha!](https://mochajs.org/)
-* [request!](https://www.npmjs.com/package/request)
+* [mocha](https://mochajs.org/)
+* [request](https://www.npmjs.com/package/request)
+
+### Running the Unit Tests
+`npm test`
 
 ## Integration Tests
 ### Dependencies
@@ -29,6 +28,10 @@ Supported requests:
     * See [here!](https://stedolan.github.io/jq/download/) for installing jq for your distribution
 
 ### Running the test suite
+#### Starting the app
+`$> node index.js`
+
+#### Run the tests
 * `$> cd tests`
 * `$> ./run_tests.sh`
 
