@@ -266,6 +266,28 @@ do
 done
 echo -e "${GREEN}Completed${NO_COLOR}"
 
-# Post 1 multiple
-# Get 1 by Id multiple
-# Delete 1 multiple
+function post {
+    STATUS_CODE=$(curl -s -o /dev/null -w "%{http_code}" -X POST -d "@test_input.json" \
+             -H "Content-Type:application/json" \
+             $SERVER:$PORT/$URL_PATH)
+    if [ $STATUS_CODE != 201 ]
+    then
+        echo -e "${RED}POST Failed${NO_COLOR}: $STATUS_CODE"
+    fi
+}
+
+# Post 100 concurrent
+echo "Running Test 13 (POST concurrent): curl -s -o /dev/null -X POST -d @test_input.json $SERVER:$PORT/$URL_PATH"
+set -m
+for i in `seq 100`
+do
+    post &
+done
+while [ 1 ]
+do
+    fg 2> /dev/null
+    if [ $? == 1 ]
+    then
+        break
+    fi
+done

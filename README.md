@@ -13,7 +13,7 @@ Supported requests:
 
 # Test Suite
 ## Unit Tests
-### Dependencies
+### Dependencies (installed on `npm install`)
 * [mocha](https://mochajs.org/)
 * [request](https://www.npmjs.com/package/request)
 

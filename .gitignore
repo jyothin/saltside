@@ -1,4 +1,4 @@
-./node_modules
-./test/test_input.json
-./test/test_output.json
-./coverage
+node_modules/
+test/test_input.json
+test/test_output.json
+coverage/

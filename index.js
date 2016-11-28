@@ -72,7 +72,6 @@ fs.readFile(GET_BIRDS_ID_RESPONSE_SCHEMA, 'utf-8', function (err, data) {
     getByIdValidator = ajvClient.compile(JSON.parse(data));
 });
 
-// TODO: check this
 function errorHandler(err, req, res, next) {
     console.error(err.stack);
     if (res.headerSent) {
@@ -138,9 +137,10 @@ app.get('/birds', function (req, res) {
     //console.log('GET: All');
     // Empty request body
 
-    var newResult = [];
+    var newResult = [],
+        cursor;
     if (collection) {
-        var cursor = collection.find();
+        cursor = collection.find();
         cursor.forEach(function (result) {
             if (result) {
                 var data = result;
@@ -175,7 +175,7 @@ app.get('/birds/:id', function (req, res) {
     var id = req.params.id;
 
     if (collection) {
-        collection.find({'_id': ObjectID(id)}).limit(1).next(function (err, result) {
+        collection.find({'_id': new ObjectID(id)}).limit(1).next(function (err, result) {
             if (err) {
                 console.error(err);
                 res.sendStatus(404);
@@ -184,7 +184,7 @@ app.get('/birds/:id', function (req, res) {
                 data.id = data._id.toString();
                 delete data._id;
                 if (!getByIdValidator(data)) {
-                    console.log(getByIdValidator.errors);
+                    console.error(getByIdValidator.errors);
                     res.sendStatus(404);
                 } else {
                     res.json(data);
@@ -204,7 +204,7 @@ app.delete('/birds/:id', function (req, res) {
 
     var id = req.params.id;
     if (collection) {
-        collection.deleteOne({'_id': ObjectID(id)}, function (err, result) {
+        collection.deleteOne({'_id': new ObjectID(id)}, function (err, result) {
             if (err) {
                 console.error(err);
                 res.sendStatus(404);
