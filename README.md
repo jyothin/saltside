@@ -1,15 +1,39 @@
 # Introduction
-Basic POST, GET and DELETE request handler as per the Saltside requirements specified 
+Basic HTTP service with JSON API that handles POST, GET and DELETE requests as per the Saltside requirements specified 
 [here!](https://gist.github.com/sebdah/265f4255cb302c80abd4)
 
+Supported requests:
+* GET /birds - List all birds
+* POST /birds - Add a new bird
+* GET /birds/{id} - Get details on a specific bird
+* DELETE /birds/{id} - Delete a bird by id
+
 # Installation
+* Install dependencies listed in Installation section above
+* npm install (?)
 
 # Starting the app
 `$> node index.js`
 
-# Running the test suite
-`$> cd tests`
-`$> ./run_tests.sh`
+# Test Suite
+## Unit Tests
+### Dependencies
+* [mocha!](https://mochajs.org/)
+* [request!](https://www.npmjs.com/package/request)
+
+## Integration Tests
+### Dependencies
+* [jq!](https://stedolan.github.io/jq/)
+    * jq is a lightweight and flexible command-line JSON processor
+    * Used for running some tests
+    * See [here!](https://stedolan.github.io/jq/download/) for installing jq for your distribution
+
+### Running the test suite
+* `$> cd tests`
+* `$> ./run_tests.sh`
+
+## Test Result
+Tests run successfully on a Debian Linux standalone PC. Not tested on other OSes.
 
 # Stack
 * MongoDB for database listening on port 27017
@@ -21,3 +45,6 @@ Basic POST, GET and DELETE request handler as per the Saltside requirements spec
 * Logs are stored in /var/log/mongodb
 * MongoDB config file /etc/mongod.conf
 * MongoDB server is run as 'mongdb' user
+
+# Code Quality Checks
+`$> jslint --nomen index.js`
