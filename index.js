@@ -22,7 +22,7 @@ mongoClient.connect(MONGO_URL, function (err, returnedDb) {
         console.error(err);
         throw new Error(err);
     }
-    console.log('Connection established to', MONGO_URL);
+    //console.log('Connection established to', MONGO_URL);
     db = returnedDb;
     collection = db.collection('birds');
 });
@@ -104,7 +104,7 @@ app.post('/birds', jsonBodyParser, function (req, res) {
             }
             // data['added'] in UTC YYYY-MM-DD format
             if (keys.indexOf('added') === -1) {
-                data.added = new Date().toISOString().replace(/\T+/, '');
+                data.added = new Date().toISOString().replace(/\T.+/, '');
             } // TODO: check if date format is valid
 
             // Add to DB
@@ -114,7 +114,7 @@ app.post('/birds', jsonBodyParser, function (req, res) {
                         console.error(err);
                         res.sendStatus(400);
                     } else {
-                        console.log('POST: ' + result.insertedIds[0]);
+                        //console.log('POST: ' + result.insertedIds[0]);
                         var resultData = result.ops[0];
                         resultData.id = resultData._id.toString();
                         delete resultData._id;
@@ -135,7 +135,7 @@ app.post('/birds', jsonBodyParser, function (req, res) {
 
 // GET request handler, returns all finds
 app.get('/birds', function (req, res) {
-    console.log('GET: All');
+    //console.log('GET: All');
     // Empty request body
 
     var newResult = [];
@@ -171,11 +171,11 @@ app.get('/birds', function (req, res) {
 
 // GET request handler, returns entry by id
 app.get('/birds/:id', function (req, res) {
-    console.log('GET: ' + req.params.id);
+    //console.log('GET: ' + req.params.id);
     var id = req.params.id;
 
     if (collection) {
-        collection.find({'_id': new ObjectID(id)}).limit(1).next(function (err, result) {
+        collection.find({'_id': ObjectID(id)}).limit(1).next(function (err, result) {
             if (err) {
                 console.error(err);
                 res.sendStatus(404);
@@ -200,11 +200,11 @@ app.get('/birds/:id', function (req, res) {
 
 // DELETE request handler, deletes entry by id
 app.delete('/birds/:id', function (req, res) {
-    console.log('DELETE: ' + req.params.id);
+    //console.log('DELETE: ' + req.params.id);
 
     var id = req.params.id;
     if (collection) {
-        collection.deleteOne({'_id': new ObjectID(id)}, function (err, result) {
+        collection.deleteOne({'_id': ObjectID(id)}, function (err, result) {
             if (err) {
                 console.error(err);
                 res.sendStatus(404);
@@ -223,7 +223,7 @@ app.delete('/birds/:id', function (req, res) {
 });
 
 app.listen(3000, function () {
-    console.log('Listening on port 3000...');
+    //console.log('Listening on port 3000...');
 });
 
 exports.appClose = function () {
